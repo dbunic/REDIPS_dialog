@@ -1,0 +1,83 @@
+/*
+Darko Bunic
+http://www.redips.net/
+Mat, 2011.
+*/
+
+/* dialog box */
+#REDIPS_dialog {
+	display: none;
+	z-index: 999;
+	position: fixed;
+	overflow: hidden;
+	/* round borders */
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	padding: 1px;
+	background-color: #6A93D4;
+	border-top-left-radius: 5px 5px;
+	border-top-right-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+	border-bottom-left-radius: 5px 5px;
+}
+		/* title bar */
+		.REDIPS_titlebar {
+			text-align: right;
+			font-size: 10px;
+			background-color: #6A93D4;
+			padding: 2px;
+		}
+			/* close button in title bar */
+			.REDIPS_titlebar span {
+				padding: 0px 2px;
+				background-color: #92B4EA;
+				color: white;
+				cursor: pointer;
+				font-size: 14px;
+			}
+
+		/* table inside dialog box */
+		.REDIPS_table {
+			background-color: #eee;
+			border-width: 0px 2px 2px 2px;
+			border-color: #6A93D4;
+			border-style: solid;
+			text-align: center;
+		}
+			/* reset table cell padding */
+			.REDIPS_table td {
+				padding: 0px;
+			}
+
+		/* image container will display only horizontal scrollbar */
+		.REDIPS_imgc {
+			overflow-y: hidden;
+			overflow-x: auto;
+			margin: 5px auto 5px auto;
+		}
+			/* center images table (if more then one image is shown) */
+			.REDIPS_imgc table {
+				margin: auto;
+			}
+
+		/* dialog buttons */
+		#REDIPS_dialog input {
+			color: white;
+			background-color: #6A93D4;
+			border: 1px #ccc solid;
+			width: 65px;
+			height: 20px;
+			margin: 18px 5px 10px 0px;
+			font-size: 10px;
+		}
+
+
+/* shaded div */
+#REDIPS_shade {
+	z-index: 998;
+	display: none;
+	position: absolute;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+}

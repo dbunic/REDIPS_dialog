@@ -1,0 +1,28 @@
+Changes for REDIPS.dialog
+
+1.4.4
+ - improved REDIPS.event (fixed bug with adding events in IE8 - appeared in REDIPS.drag)
+
+1.4.3
+- switched to player version 2
+- changed skin color
+- redesigned close button
+
+1.4.2
+- closing input tag in line 172 due to breaking xhtml (thanks to cs0815)
+- tag was forced to lowercase because styles were never applied (thanks to cs0815)
+
+1.4.1
+- REDIPS namespace created if is not already defined in another REDIPS package (var REDIPS = REDIPS || {};)
+- added REDIPS.event at the bottom
+
+1.4.0
+- <div id="dialog"> changed to <div id="REDIPSdialog">
+- button "Close" moved to title bar
+- added support for YouTube
+- dialog box position changed to "fixed" (instead of "absolute")
+- class names renamed to avoid collision
+
+1.3.0
+- fixed bug with properties op_high, op_low and fade_speed
+- enabled passing parameter to the user function
