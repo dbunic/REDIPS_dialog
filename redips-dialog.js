@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.4.4
-Mar 13, 2011.
+Version 1.5.0
+Jun 15, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -20,7 +20,8 @@ REDIPS.dialog = (function () {
 	var	init,
 		show,
 		hide,
-		image_tag,		// prepare image tags
+		image_tag,		// prepare image tag
+		iframe_tag,		// prepare iframe tag
 		position,
 		visibility,
 		fade,
@@ -29,7 +30,7 @@ REDIPS.dialog = (function () {
 		// properties
 		op_high = 60,	// highest opacity level
 		op_low = 0,		// lowest opacity level (should be the same as initial opacity in the CSS)
-		fade_speed = 18,// set default speed - 18ms
+		fade_speed = 10,// set default speed - 10ms
 		// youtube HTML code (this can be overwritten with REDIPS.dialog.youtube - "_youtube_" must be present)
 		youtube =	'<object width="640" height="390">' +
 						'<param name="movie" value="http://_youtube_?&version=2&fs=0&rel=0&iv_load_policy=3&color2=0x6A93D4"></param>' +
@@ -69,14 +70,15 @@ REDIPS.dialog = (function () {
 		REDIPS.event.add(window, 'resize', position);
 		REDIPS.event.add(window, 'scroll', position);
 	};
-	
-	
+
+
 	// show dialog box
 	show = function (width, height, text, button1, button2) {
 		var input1 = '',		// define input1 button
 			input2 = '',		// define input2 (optional) button
 			param  = '',		// optional function parameter
-			img_extensions,		// needed for image search
+			img_extensions,		// needed for images search
+			page_extensions,	// needed for pages search
 			youtube_url,		// needed for youtube url search
 			youtube_html = '',	// youtube embeded html
 			div_img = '',		// prepared DIV with images
@@ -88,9 +90,11 @@ REDIPS.dialog = (function () {
 		position();
 		// if text ends with jpg, jpeg, gif or png, then prepare img tag
 		img_extensions = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
+		// if text contains .php, .html, then prepare iframe tag
+		page_extensions = /(\.php|\.html)/i;
 		// if text contains youtube url
 		youtube_url = /www\.youtube\.com/i;
-		// if it is image		
+		// if text is image		
 		if (img_extensions.test(text)) {
 			// text can precede jpg, jpeg, gif or png image, so search for separator
 			img_text = text.split('|');
@@ -103,6 +107,10 @@ REDIPS.dialog = (function () {
 				div_img = image_tag(img_text[1]);
 				div_text = '<DIV>' + img_text[0] + '</DIV>';
 			}
+		}
+		// prepare iframe HTML code
+		else if (page_extensions.test(text)) {
+			div_img = iframe_tag(text);
 		}
 		// prepare youtube HTML code
 		else if (youtube_url.test(text)) {
@@ -134,10 +142,10 @@ REDIPS.dialog = (function () {
 		// hide dropdown menus, iframes & flash
 		visibility('hidden');
 		// show shaded div slowly
-		fade(REDIPS.dialog.op_low, 10);
+		fade(REDIPS.dialog.op_low, 5);
 	};
-	
-	
+
+
 	// hide dialog box and shade
 	hide = function (fnc, param) {
 		// set function call
@@ -145,7 +153,7 @@ REDIPS.dialog = (function () {
 		// set function parameter
 		function_param = param;
 		// start fade out
-		fade(REDIPS.dialog.op_high, -20);
+		fade(REDIPS.dialog.op_high, -10);
 		// hide dialog box
 		dialog_box.style.display = 'none';
 		// show dropdown menu, iframe & flash
@@ -199,6 +207,17 @@ REDIPS.dialog = (function () {
 	};
 
 
+	// function prepares iframe HTML
+	iframe_tag = function (url) {
+		// define iframe variable
+		var iframe;
+		// prepare iframe html
+		iframe = '<iframe src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>';
+		// return iframe HTML
+		return iframe;
+	};
+
+
 	// function sets dialog position to the center and maximize shade div
 	position = function () {
 		// define local variables
@@ -235,8 +254,8 @@ REDIPS.dialog = (function () {
 		shade.style.top  = scrollY + 'px';
 		shade.style.left = scrollX + 'px';
 	};
-	
-	
+
+
 	// show/hide dropdown menu, iframe and flash objects (work-around for dropdown menu problem in IE6)
 	visibility = function (p) {
 		var obj = [],	// define tag array
@@ -262,8 +281,8 @@ REDIPS.dialog = (function () {
 			}
 		}
 	};
-	
-	
+
+
 	// shade fade in / fade out
 	fade = function (opacity, step) {
 		// set opacity for FF and IE
@@ -288,20 +307,20 @@ REDIPS.dialog = (function () {
 		}
 	};
 
-	
+
 	return {
 		// public properties
 		op_high			: op_high,		// highest opacity level
 		op_low			: op_low,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed		: fade_speed,	// fade speed (default is 18ms)
 		youtube			: youtube,		// youtube HTML code
-        
+
 		// public methods
 		init			: init,			// initialization
 		show			: show,			// show dialog box
 		hide			: hide			// hide dialog box
 	};
-			
+
 }());
 
 
@@ -328,7 +347,7 @@ if (!REDIPS.event) {
 				obj['on' + eventName] = handler;
 			}
 		};
-	
+
 		// remove event listener
 		remove = function (obj, eventName, handler) {
 			if (obj.removeEventListener) {

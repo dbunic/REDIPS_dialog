@@ -1,5 +1,8 @@
 Changes for REDIPS.dialog
 
+1.5.0
+- added support to show dialog from html page
+
 1.4.4
  - improved REDIPS.event (fixed bug with adding events in IE8 - appeared in REDIPS.drag)
 
