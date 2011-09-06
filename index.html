@@ -6,8 +6,10 @@
 		<link rel="stylesheet" href="redips-dialog.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="redips-dialog.js"></script>
 		<script type="text/javascript">
-			// initialize dialog box
-			window.onload = function () {
+			// define redips_init variable
+			var redips_init;
+			// dialog box initialization (called from event)
+			redips_init = function () {
 				REDIPS.dialog.init();
 				REDIPS.dialog.op_high = 60;
 				REDIPS.dialog.fade_speed = 18;
@@ -29,6 +31,13 @@
 					msg = 'Hi from function button2 ...';
 				}
 				alert(msg);
+			}
+			// add onload event listener
+			if (window.addEventListener) {
+				window.addEventListener('load', redips_init, false);
+			}
+			else if (window.attachEvent) {
+				window.attachEvent('onload', redips_init);
 			}
 		</script>
 		<style>
