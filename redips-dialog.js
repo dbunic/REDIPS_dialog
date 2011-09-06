@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.0
-Jun 15, 2011.
+Version 1.5.1
+See 06, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -31,6 +31,7 @@ REDIPS.dialog = (function () {
 		op_high = 60,	// highest opacity level
 		op_low = 0,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed = 10,// set default speed - 10ms
+		close_button = '✕',
 		// youtube HTML code (this can be overwritten with REDIPS.dialog.youtube - "_youtube_" must be present)
 		youtube =	'<object width="640" height="390">' +
 						'<param name="movie" value="http://_youtube_?&version=2&fs=0&rel=0&iv_load_policy=3&color2=0x6A93D4"></param>' +
@@ -130,7 +131,7 @@ REDIPS.dialog = (function () {
 		}
 		// set HTML for dialog box - use table to vertical align content inside
 		// dialog box (this should work in all browsers)
-		dialog_box.innerHTML = '<DIV class="REDIPS_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">✕</SPAN></DIV>' +
+		dialog_box.innerHTML = '<DIV class="REDIPS_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</SPAN></DIV>' +
 								'<TABLE class="REDIPS_table" cellpadding="0" cellspacing="0"><TR><TD valign="center" height="' + height + '" width="' + width + '">' + 
 								 div_img +
 								 div_text +
@@ -314,6 +315,7 @@ REDIPS.dialog = (function () {
 		op_low			: op_low,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed		: fade_speed,	// fade speed (default is 18ms)
 		youtube			: youtube,		// youtube HTML code
+		close_button	: close_button,	// close button (1 character default ✕)
 
 		// public methods
 		init			: init,			// initialization
