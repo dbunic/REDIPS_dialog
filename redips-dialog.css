@@ -5,7 +5,7 @@ Mar, 2011.
 */
 
 /* dialog box */
-#REDIPS_dialog {
+#redips_dialog {
 	display: none;
 	z-index: 999;
 	position: fixed;
@@ -21,14 +21,14 @@ Mar, 2011.
 	border-bottom-left-radius: 5px 5px;
 }
 		/* title bar */
-		.REDIPS_titlebar {
+		.redips_dialog_titlebar {
 			text-align: right;
 			font-size: 10px;
 			background-color: #6A93D4;
 			padding: 2px;
 		}
 			/* close button in title bar */
-			.REDIPS_titlebar span {
+			.redips_dialog_titlebar span {
 				padding: 0px 2px;
 				background-color: #92B4EA;
 				color: white;
@@ -37,7 +37,7 @@ Mar, 2011.
 			}
 
 		/* table inside dialog box */
-		.REDIPS_table {
+		.redips_dialog_tbl {
 			background-color: #eee;
 			border-width: 0px 2px 2px 2px;
 			border-color: #6A93D4;
@@ -45,23 +45,23 @@ Mar, 2011.
 			text-align: center;
 		}
 			/* reset table cell padding */
-			.REDIPS_table td {
+			.redips_dialog_tbl td {
 				padding: 0px;
 			}
 
 		/* image container will display only horizontal scrollbar */
-		.REDIPS_imgc {
+		.redips_dialog_imgc {
 			overflow-y: hidden;
 			overflow-x: auto;
 			margin: 5px auto 5px auto;
 		}
 			/* center images table (if more then one image is shown) */
-			.REDIPS_imgc table {
+			.redips_dialog_imgc table {
 				margin: auto;
 			}
 
 		/* dialog buttons */
-		#REDIPS_dialog input {
+		#redips_dialog_buttons input {
 			color: white;
 			background-color: #6A93D4;
 			border: 1px #ccc solid;
@@ -73,7 +73,7 @@ Mar, 2011.
 
 
 /* shaded div */
-#REDIPS_shade {
+#redips_dialog_shade {
 	z-index: 998;
 	display: none;
 	position: absolute;

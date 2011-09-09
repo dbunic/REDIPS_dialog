@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.1
-See 06, 2011.
+Version 1.5.2
+Sep 10, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -15,19 +15,30 @@ See 06, 2011.
 // create REDIPS namespace (if is not already defined in another REDIPS package)
 var REDIPS = REDIPS || {};
 
+
+/**
+ * @namespace
+ * @description REDIPS.dialog is a simple JavaScript dialog box.
+ * @name REDIPS.dialog
+ * @author Darko Bunic
+ * @see
+ * <a href="http://www.redips.net/javascript/dialog-box/">JavaScript dialog box</a>
+ * @version 1.5.2
+ */
 REDIPS.dialog = (function () {
 		// function declaration
 	var	init,
 		show,
 		hide,
 		image_tag,		// prepare image tag
-		iframe_tag,		// prepare iframe tag
 		position,
-		visibility,
 		fade,
-		input_html,		// function prepares input tag HTML 
+		input_html,		// function prepares input tag HTML
+		dialog_html,	// prepares dialog html
+		initXMLHttpClient,
 		
 		// properties
+		request,		// XMLHttp request object (needed for HTML tag)
 		op_high = 60,	// highest opacity level
 		op_low = 0,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed = 10,// set default speed - 10ms
@@ -52,7 +63,7 @@ REDIPS.dialog = (function () {
 		dialog_height = 0,				// initialize dialog height
 		function_call,					// name of function to call after clicking on button
 		function_param,					// optional function parameter
-		dialog_id = 'REDIPS_dialog';	// set dialog id (the same id should be in redips-dialog.css) 
+		dialog_id = 'redips_dialog';	// set dialog id (the same id should be in redips-dialog.css) 
 
 
 	// initialization
@@ -62,7 +73,7 @@ REDIPS.dialog = (function () {
 		dialog_box.setAttribute('id', dialog_id);
 		// create shade div
 		shade = document.createElement('div');
-		shade.setAttribute('id', 'REDIPS_shade');
+		shade.setAttribute('id', 'redips_dialog_shade');
 		// append dialog box and shade to the page body
 		var body = document.getElementsByTagName('body')[0];
 		body.appendChild(shade);
@@ -70,6 +81,37 @@ REDIPS.dialog = (function () {
 		// add event listener for onscroll & onresize events
 		REDIPS.event.add(window, 'resize', position);
 		REDIPS.event.add(window, 'scroll', position);
+		// initiate XMLHttp request object
+		request = initXMLHttpClient();
+	};
+
+
+	// XMLHttp request object
+	initXMLHttpClient = function () {
+		var XMLHTTP_IDS,
+			xmlhttp,
+			success = false,
+			i;
+		// Mozilla/Chrome/Safari/IE7/IE8 (normal browsers)
+		try {
+			xmlhttp = new XMLHttpRequest(); 
+		}
+		// IE (?!)
+		catch (e1) {
+			XMLHTTP_IDS = [ 'MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0',
+							'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLHTTP' ];
+			for (i = 0; i < XMLHTTP_IDS.length && !success; i++) {
+				try {
+					success = true;
+					xmlhttp = new ActiveXObject(XMLHTTP_IDS[i]);
+				}
+				catch (e2) {}
+			}
+			if (!success) {
+				throw new Error('Unable to create XMLHttpRequest!');
+			}
+		}
+		return xmlhttp;
 	};
 
 
@@ -85,6 +127,7 @@ REDIPS.dialog = (function () {
 			div_img = '',		// prepared DIV with images
 			div_text = '',		// text wrapped with DIV
 			img_text = '';		// text under image
+
 		// set dialog width, height and calculate central position
 		dialog_width  = width;
 		dialog_height = height;
@@ -95,6 +138,14 @@ REDIPS.dialog = (function () {
 		page_extensions = /(\.php|\.html)/i;
 		// if text contains youtube url
 		youtube_url = /www\.youtube\.com/i;
+		// prepare optional button1
+		if (button1 !== undefined) {
+			input1 = input_html(button1);
+		}
+		// prepare optional button2 
+		if (button2 !== undefined) {
+			input2  = input_html(button2);
+		}
 		// if text is image		
 		if (img_extensions.test(text)) {
 			// text can precede jpg, jpeg, gif or png image, so search for separator
@@ -108,40 +159,70 @@ REDIPS.dialog = (function () {
 				div_img = image_tag(img_text[1]);
 				div_text = '<DIV>' + img_text[0] + '</DIV>';
 			}
+			dialog_html(div_img + div_text, input1, input2);
 		}
-		// prepare iframe HTML code
+		// get html with AJAX from server
 		else if (page_extensions.test(text)) {
-			div_img = iframe_tag(text);
+			// open asynchronus request
+			request.open('GET', text, true);
+			// the onreadystatechange event is triggered every time the readyState changes
+			request.onreadystatechange = function () {
+				// request finished and response is ready
+				if (request.readyState === 4) {
+					if (request.status === 200) {
+						dialog_html(request.responseText);
+					}
+					// if request status isn't OK
+					else {
+						show.dialog_html('Error: [' + request.status + '] ' + request.statusText);
+					}
+			    }
+			};
+			// send request
+			request.send(null);
 		}
 		// prepare youtube HTML code
 		else if (youtube_url.test(text)) {
 			youtube_html = REDIPS.dialog.youtube.replace(/_youtube_/g, text);
+			dialog_html(youtube_html);
 		}
 		// else prepare text within DIV
 		else {
 			div_text = '<DIV>' + text + '</DIV>';
+			dialog_html(div_img + div_text, input1, input2);
 		}
-		// prepare optional button1
-		if (button1 !== undefined) {
-			input1 = input_html(button1);
+
+	};
+
+
+	/**
+	 * Method sets innerHTML for displaying text, images, youtube videos or custom HTML inside dialog box.
+	 * "html" parameter is mandatory while input1 and input2 are optional and they will be mostly used
+	 * for displaying text (questions).
+	 * @param {String} html HTML code to display in dialog box.
+	 * @param {String} [input1] First button.
+	 * @param {String} [input2] Second button.
+	 * @see <a href="#row_clone">row_clone</a>
+	 * @private
+	 * @memberOf REDIPS.drag#
+	 */
+	dialog_html = function (html, input1, input2) {
+		// if buttons are not defined, set blank string to enable string concatenation
+		if (input1 === undefined) {
+			input1 = '';
 		}
-		// prepare optional button2 
-		if (button2 !== undefined) {
-			input2  = input_html(button2);
+		if (input2 === undefined) {
+			input2 = '';
 		}
 		// set HTML for dialog box - use table to vertical align content inside
 		// dialog box (this should work in all browsers)
-		dialog_box.innerHTML = '<DIV class="REDIPS_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</SPAN></DIV>' +
-								'<TABLE class="REDIPS_table" cellpadding="0" cellspacing="0"><TR><TD valign="center" height="' + height + '" width="' + width + '">' + 
-								 div_img +
-								 div_text +
-								 youtube_html +
-								 '<DIV>' + input1 + input2 + '</DIV>' +
+		dialog_box.innerHTML = '<DIV class="redips_dialog_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</SPAN></DIV>' +
+								'<TABLE class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><TR><TD valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
+								 html +
+								 '<DIV class="redips_dialog_buttons>' + input1 + input2 + '</DIV>' +
 								 '</TD></TR></TABLE>';
 		// show shade and dialog box
 		shade.style.display = dialog_box.style.display = 'block';
-		// hide dropdown menus, iframes & flash
-		visibility('hidden');
 		// show shaded div slowly
 		fade(REDIPS.dialog.op_low, 5);
 	};
@@ -157,8 +238,6 @@ REDIPS.dialog = (function () {
 		fade(REDIPS.dialog.op_high, -10);
 		// hide dialog box
 		dialog_box.style.display = 'none';
-		// show dropdown menu, iframe & flash
-		visibility('visible');
 	};
 
 
@@ -193,11 +272,11 @@ REDIPS.dialog = (function () {
 		images = image.split(',');
 		// array contain only one image - simple
 		if (images.length === 1) {
-			img = '<DIV class="REDIPS_imgc"><IMG src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></DIV>';
+			img = '<DIV class="redips_dialog_imgc"><IMG src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></DIV>';
 		}
 		// otherwise run loop for more images (images are placed in a table row)
 		else {
-			img = '<DIV class="REDIPS_imgc" style="width:' + (dialog_width - 8) + 'px"><TABLE><TR>';
+			img = '<DIV class="redips_dialog_imgc" style="width:' + (dialog_width - 8) + 'px"><TABLE><TR>';
 			for (i = 0; i < images.length; i++) {
 				img += '<TD><IMG src="' + images[i] + '" height="' + (dialog_height - 40) + '"/></TD>';
 			}
@@ -205,17 +284,6 @@ REDIPS.dialog = (function () {
 		}
 		// return prepared img HTML
 		return img; 
-	};
-
-
-	// function prepares iframe HTML
-	iframe_tag = function (url) {
-		// define iframe variable
-		var iframe;
-		// prepare iframe html
-		iframe = '<iframe src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>';
-		// return iframe HTML
-		return iframe;
 	};
 
 
@@ -254,33 +322,6 @@ REDIPS.dialog = (function () {
 		// set shade offset
 		shade.style.top  = scrollY + 'px';
 		shade.style.left = scrollX + 'px';
-	};
-
-
-	// show/hide dropdown menu, iframe and flash objects (work-around for dropdown menu problem in IE6)
-	visibility = function (p) {
-		var obj = [],	// define tag array
-			x, y,		// variables used in local loops
-			e;			// current element
-		obj[0] = document.getElementsByTagName('select');
-		obj[1] = document.getElementsByTagName('iframe');
-		obj[2] = document.getElementsByTagName('object');
-		// loop through fetched elements
-		for (x = 0; x < obj.length; x++) {
-			for (y = 0; y < obj[x].length; y++) {
-				// set current element
-				e = obj[x][y];
-				// loop up until found main div container
-				while (e && e.id !== dialog_id) {
-					e = e.parentNode;
-				}
-				// if object belongs to the DIV REDIPS_dialog then step over
-				if (e && e.id === dialog_id) {
-					continue;
-				}
-				obj[x][y].style.visibility = p;
-			}
-		}
 	};
 
 

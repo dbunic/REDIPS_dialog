@@ -1,5 +1,8 @@
 Changes for REDIPS.dialog
 
+1.5.2
+- added AJAX request for HTML/PHP page (instead of iframe)
+
 1.5.1
 - added public property REDIPS.dialog.close_button to change default '✕' character if needed
 
