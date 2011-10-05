@@ -2,12 +2,12 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.2
-Sep 10, 2011.
+Version 1.5.3
+Oct 5, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
-/*global window: false */
+/*global window: false, ActiveXObject: false */
 
 /* enable strict mode */
 "use strict";
@@ -157,7 +157,7 @@ REDIPS.dialog = (function () {
 			// otherwise, prepare image and text DIV
 			else {
 				div_img = image_tag(img_text[1]);
-				div_text = '<DIV>' + img_text[0] + '</DIV>';
+				div_text = '<div>' + img_text[0] + '</div>';
 			}
 			dialog_html(div_img + div_text, input1, input2);
 		}
@@ -188,7 +188,7 @@ REDIPS.dialog = (function () {
 		}
 		// else prepare text within DIV
 		else {
-			div_text = '<DIV>' + text + '</DIV>';
+			div_text = '<div>' + text + '</div>';
 			dialog_html(div_img + div_text, input1, input2);
 		}
 
@@ -216,11 +216,11 @@ REDIPS.dialog = (function () {
 		}
 		// set HTML for dialog box - use table to vertical align content inside
 		// dialog box (this should work in all browsers)
-		dialog_box.innerHTML = '<DIV class="redips_dialog_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</SPAN></DIV>' +
-								'<TABLE class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><TR><TD valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
+		dialog_box.innerHTML = '<div class="redips_dialog_titlebar"><span title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</span></div>' +
+								'<table class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><tr><td valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
 								 html +
-								 '<DIV class="redips_dialog_buttons>' + input1 + input2 + '</DIV>' +
-								 '</TD></TR></TABLE>';
+								 '<div class="redips_dialog_buttons>' + input1 + input2 + '</div>' +
+								 '</td></tr></table>';
 		// show shade and dialog box
 		shade.style.display = dialog_box.style.display = 'block';
 		// show shaded div slowly
@@ -272,15 +272,15 @@ REDIPS.dialog = (function () {
 		images = image.split(',');
 		// array contain only one image - simple
 		if (images.length === 1) {
-			img = '<DIV class="redips_dialog_imgc"><IMG src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></DIV>';
+			img = '<div class="redips_dialog_imgc"><img src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></div>';
 		}
 		// otherwise run loop for more images (images are placed in a table row)
 		else {
-			img = '<DIV class="redips_dialog_imgc" style="width:' + (dialog_width - 8) + 'px"><TABLE><TR>';
+			img = '<div class="redips_dialog_imgc" style="width:' + (dialog_width - 8) + 'px"><table><tr>';
 			for (i = 0; i < images.length; i++) {
-				img += '<TD><IMG src="' + images[i] + '" height="' + (dialog_height - 40) + '"/></TD>';
+				img += '<td><img src="' + images[i] + '" height="' + (dialog_height - 40) + '"/></td>';
 			}
-			img += '</TR></TABLE></DIV>';
+			img += '</tr></table></div>';
 		}
 		// return prepared img HTML
 		return img; 

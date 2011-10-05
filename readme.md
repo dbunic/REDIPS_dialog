@@ -1,4 +1,4 @@
-REDIPS.dialog 1.5.2
+REDIPS.dialog 1.5.3
 ============
 
 ## What's REDIPS.dialog?
