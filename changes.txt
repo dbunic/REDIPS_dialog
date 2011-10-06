@@ -1,7 +1,10 @@
 Changes for REDIPS.dialog
 
+1.5.4
+- fixed missing quote - thanks to Bianka Martinovic
+
 1.5.3
-- HTML tags converted to lowercase (XHTML requires HTML tags to be lowercase - thanks to Bianka Martinovic)
+- HTML tags converted to lowercase (XHTML requires HTML tags to be lowercase) - thanks to Bianka Martinovic
 
 1.5.2
 - added AJAX request for HTML/PHP page (instead of iframe)

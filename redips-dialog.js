@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.3
-Oct 5, 2011.
+Version 1.5.4
+Oct 6, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -219,7 +219,7 @@ REDIPS.dialog = (function () {
 		dialog_box.innerHTML = '<div class="redips_dialog_titlebar"><span title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</span></div>' +
 								'<table class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><tr><td valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
 								 html +
-								 '<div class="redips_dialog_buttons>' + input1 + input2 + '</div>' +
+								 '<div class="redips_dialog_buttons">' + input1 + input2 + '</div>' +
 								 '</td></tr></table>';
 		// show shade and dialog box
 		shade.style.display = dialog_box.style.display = 'block';

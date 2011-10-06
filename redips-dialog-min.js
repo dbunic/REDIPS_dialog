@@ -2,8 +2,8 @@
 Copyright (c) 2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.3
-Oct 5, 2011.
+Version 1.5.4
+Oct 6, 2011.
 */
 "use strict";var REDIPS=REDIPS||{};REDIPS.dialog=(function(){var init,show,hide,image_tag,position,fade,input_html,dialog_html,initXMLHttpClient,request,op_high=60,op_low=0,fade_speed=10,close_button='✕',youtube='<object width="640" height="390">'+'<param name="movie" value="http://_youtube_?&version=2&fs=0&rel=0&iv_load_policy=3&color2=0x6A93D4"></param>'+'<param name="allowFullScreen" value="true"></param>'+'<param name="allowScriptAccess" value="always"></param>'+'<embed src="http://_youtube_?&version=2&fs=0&rel=0&iv_load_policy=3&color2=0x6A93D4" '+'type="application/x-shockwave-flash" '+'allowfullscreen="true" '+'allowscriptaccess="always" '+'width="640" height="390">'+'</embed>'+'</object>',shade,dialog_box,dialog_width=0,dialog_height=0,function_call,function_param,dialog_id='redips_dialog';init=function(){dialog_box=document.createElement('div');dialog_box.setAttribute('id',dialog_id);shade=document.createElement('div');shade.setAttribute('id','redips_dialog_shade');var body=document.getElementsByTagName('body')[0];body.appendChild(shade);body.appendChild(dialog_box);REDIPS.event.add(window,'resize',position);REDIPS.event.add(window,'scroll',position);request=initXMLHttpClient();};initXMLHttpClient=function(){var XMLHTTP_IDS,xmlhttp,success=false,i;try{xmlhttp=new XMLHttpRequest();}
 catch(e1){XMLHTTP_IDS=['MSXML2.XMLHTTP.5.0','MSXML2.XMLHTTP.4.0','MSXML2.XMLHTTP.3.0','MSXML2.XMLHTTP','Microsoft.XMLHTTP'];for(i=0;i<XMLHTTP_IDS.length&&!success;i++){try{success=true;xmlhttp=new ActiveXObject(XMLHTTP_IDS[i]);}
@@ -20,7 +20,7 @@ else if(youtube_url.test(text)){youtube_html=REDIPS.dialog.youtube.replace(/_you
 else{div_text='<div>'+text+'</div>';dialog_html(div_img+div_text,input1,input2);}};dialog_html=function(html,input1,input2){if(input1===undefined){input1='';}
 if(input2===undefined){input2='';}
 dialog_box.innerHTML='<div class="redips_dialog_titlebar"><span title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">'+REDIPS.dialog.close_button+'</span></div>'+'<table class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><tr><td valign="center" height="'+dialog_height+'" width="'+dialog_width+'">'+
-html+'<div class="redips_dialog_buttons>'+input1+input2+'</div>'+'</td></tr></table>';shade.style.display=dialog_box.style.display='block';fade(REDIPS.dialog.op_low,5);};hide=function(fnc,param){function_call=fnc;function_param=param;fade(REDIPS.dialog.op_high,-10);dialog_box.style.display='none';};input_html=function(button){var param,html;button=button.split('|');param=button[2];if(param!==undefined){param='\',\''+param;}
+html+'<div class="redips_dialog_buttons">'+input1+input2+'</div>'+'</td></tr></table>';shade.style.display=dialog_box.style.display='block';fade(REDIPS.dialog.op_low,5);};hide=function(fnc,param){function_call=fnc;function_param=param;fade(REDIPS.dialog.op_high,-10);dialog_box.style.display='none';};input_html=function(button){var param,html;button=button.split('|');param=button[2];if(param!==undefined){param='\',\''+param;}
 else{param='';}
 html='<input type="button" onclick="REDIPS.dialog.hide(\''+button[1]+param+'\');" value="'+button[0]+'"/>';return html;};image_tag=function(image){var img,images,i;images=image.split(',');if(images.length===1){img='<div class="redips_dialog_imgc"><img src="'+images[0]+'" height="'+(dialog_height-40)+'"/></div>';}
 else{img='<div class="redips_dialog_imgc" style="width:'+(dialog_width-8)+'px"><table><tr>';for(i=0;i<images.length;i++){img+='<td><img src="'+images[i]+'" height="'+(dialog_height-40)+'"/></td>';}
