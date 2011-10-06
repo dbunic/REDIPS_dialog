@@ -2,12 +2,12 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.2
-Sep 10, 2011.
+Version 1.5.3
+Oct 5, 2011.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
-/*global window: false */
+/*global window: false, ActiveXObject: false */
 
 /* enable strict mode */
 "use strict";
@@ -36,7 +36,7 @@ REDIPS.dialog = (function () {
 		input_html,		// function prepares input tag HTML
 		dialog_html,	// prepares dialog html
 		initXMLHttpClient,
-		
+
 		// properties
 		request,		// XMLHttp request object (needed for HTML tag)
 		op_high = 60,	// highest opacity level
@@ -55,7 +55,7 @@ REDIPS.dialog = (function () {
 								'width="640" height="390">' +
 						'</embed>' +
 					'</object>',
-		
+
 		// private parameters
 		shade,							// shade div (object reference)
 		dialog_box,						// dialog box (object reference)
@@ -63,7 +63,7 @@ REDIPS.dialog = (function () {
 		dialog_height = 0,				// initialize dialog height
 		function_call,					// name of function to call after clicking on button
 		function_param,					// optional function parameter
-		dialog_id = 'redips_dialog';	// set dialog id (the same id should be in redips-dialog.css) 
+		dialog_id = 'redips_dialog';	// set dialog id (the same id should be in redips-dialog.css)
 
 
 	// initialization
@@ -94,7 +94,7 @@ REDIPS.dialog = (function () {
 			i;
 		// Mozilla/Chrome/Safari/IE7/IE8 (normal browsers)
 		try {
-			xmlhttp = new XMLHttpRequest(); 
+			xmlhttp = new XMLHttpRequest();
 		}
 		// IE (?!)
 		catch (e1) {
@@ -142,11 +142,11 @@ REDIPS.dialog = (function () {
 		if (button1 !== undefined) {
 			input1 = input_html(button1);
 		}
-		// prepare optional button2 
+		// prepare optional button2
 		if (button2 !== undefined) {
 			input2  = input_html(button2);
 		}
-		// if text is image		
+		// if text is image
 		if (img_extensions.test(text)) {
 			// text can precede jpg, jpeg, gif or png image, so search for separator
 			img_text = text.split('|');
@@ -157,7 +157,7 @@ REDIPS.dialog = (function () {
 			// otherwise, prepare image and text DIV
 			else {
 				div_img = image_tag(img_text[1]);
-				div_text = '<DIV>' + img_text[0] + '</DIV>';
+				div_text = '<div>' + img_text[0] + '</div>';
 			}
 			dialog_html(div_img + div_text, input1, input2);
 		}
@@ -188,7 +188,7 @@ REDIPS.dialog = (function () {
 		}
 		// else prepare text within DIV
 		else {
-			div_text = '<DIV>' + text + '</DIV>';
+			div_text = '<div>' + text + '</div>';
 			dialog_html(div_img + div_text, input1, input2);
 		}
 
@@ -216,11 +216,11 @@ REDIPS.dialog = (function () {
 		}
 		// set HTML for dialog box - use table to vertical align content inside
 		// dialog box (this should work in all browsers)
-		dialog_box.innerHTML = '<DIV class="redips_dialog_titlebar"><SPAN title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</SPAN></DIV>' +
-								'<TABLE class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><TR><TD valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
+		dialog_box.innerHTML = '<div class="redips_dialog_titlebar"><span title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</span></div>' +
+								'<table class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><tr><td valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
 								 html +
-								 '<DIV class="redips_dialog_buttons>' + input1 + input2 + '</DIV>' +
-								 '</TD></TR></TABLE>';
+								 '<div class="redips_dialog_buttons">' + input1 + input2 + '</div>' +
+								 '</td></tr></table>';
 		// show shade and dialog box
 		shade.style.display = dialog_box.style.display = 'block';
 		// show shaded div slowly
@@ -263,7 +263,7 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// prepare img tags (one or more) 
+	// prepare img tags (one or more)
 	image_tag = function (image) {
 		var img,	// prepared img HTML
 			images,	// array containing separated images
@@ -272,18 +272,18 @@ REDIPS.dialog = (function () {
 		images = image.split(',');
 		// array contain only one image - simple
 		if (images.length === 1) {
-			img = '<DIV class="redips_dialog_imgc"><IMG src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></DIV>';
+			img = '<div class="redips_dialog_imgc"><img src="' + images[0] + '" height="' + (dialog_height - 40) + '"/></div>';
 		}
 		// otherwise run loop for more images (images are placed in a table row)
 		else {
-			img = '<DIV class="redips_dialog_imgc" style="width:' + (dialog_width - 8) + 'px"><TABLE><TR>';
+			img = '<div class="redips_dialog_imgc" style="width:' + (dialog_width - 8) + 'px"><table><tr>';
 			for (i = 0; i < images.length; i++) {
-				img += '<TD><IMG src="' + images[i] + '" height="' + (dialog_height - 40) + '"/></TD>';
+				img += '<td><img src="' + images[i] + '" height="' + (dialog_height - 40) + '"/></td>';
 			}
-			img += '</TR></TABLE></DIV>';
+			img += '</tr></table></div>';
 		}
 		// return prepared img HTML
-		return img; 
+		return img;
 	};
 
 
@@ -339,7 +339,7 @@ REDIPS.dialog = (function () {
 					fade(opacity, step);
 				}, REDIPS.dialog.fade_speed); // fade speed is public parameter
 		}
-		// hide shade div when fade out ends and make function call 
+		// hide shade div when fade out ends and make function call
 		else if (REDIPS.dialog.op_low > opacity) {
 			shade.style.display = 'none';
 			if (function_call !== 'undefined') {
@@ -369,12 +369,12 @@ REDIPS.dialog = (function () {
 
 
 
-//if REDIPS.event isn't already defined (from other REDIPS file) 
+//if REDIPS.event isn't already defined (from other REDIPS file)
 if (!REDIPS.event) {
 	REDIPS.event = (function () {
 		var add,	// add event listener
 			remove;	// remove event listener
-		
+
 		// http://msdn.microsoft.com/en-us/scriptjunkie/ff728624
 		// http://www.javascriptrules.com/2009/07/22/cross-browser-event-listener-with-design-patterns/
 
@@ -403,11 +403,11 @@ if (!REDIPS.event) {
 				obj['on' + eventName] = null;
 			}
 		};
-	
+
 		return {
 			add		: add,
 			remove	: remove
-		}; // end of public (return statement)	
-		
+		}; // end of public (return statement)
+
 	}());
 }
