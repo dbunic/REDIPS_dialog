@@ -1,5 +1,8 @@
 Changes for REDIPS.dialog
 
+1.5.5
+- added REDIPS.dialog.shown public property
+
 1.5.4
 - fixed missing quote - thanks to Bianka Martinovic
 
