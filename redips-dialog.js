@@ -2,7 +2,7 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.5
+Version 1.5.6
 Mar 8, 2012.
 */
 
@@ -23,7 +23,7 @@ var REDIPS = REDIPS || {};
  * @author Darko Bunic
  * @see
  * <a href="http://www.redips.net/javascript/dialog-box/">JavaScript dialog box</a>
- * @version 1.5.5
+ * @version 1.5.6
  */
 REDIPS.dialog = (function () {
 		// function declaration
@@ -43,6 +43,7 @@ REDIPS.dialog = (function () {
 		op_high = 60,	// highest opacity level
 		op_low = 0,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed = 10,// set default speed - 10ms
+		shown = false,	// (boolean) readonly public property which shows if dialog is displayed or not
 		close_button = '✕',
 		// youtube HTML code (this can be overwritten with REDIPS.dialog.youtube - "_youtube_" must be present)
 		youtube =	'<object width="640" height="390">' +
@@ -129,6 +130,8 @@ REDIPS.dialog = (function () {
 			div_text = '',		// text wrapped with DIV
 			img_text = '';		// text under image
 
+		// set shown property to true
+		REDIPS.dialog.shown = true;
 		// set dialog width, height and calculate central position
 		dialog_width  = width;
 		dialog_height = height;
@@ -231,14 +234,19 @@ REDIPS.dialog = (function () {
 
 	// hide dialog box and shade
 	hide = function (fnc, param) {
-		// set function call
-		function_call = fnc;
-		// set function parameter
-		function_param = param;
-		// start fade out
-		fade(REDIPS.dialog.op_high, -10);
-		// hide dialog box
-		dialog_box.style.display = 'none';
+		// test if dialog is displayed
+		if (REDIPS.dialog.shown === true) {
+			// set shown property to false
+			REDIPS.dialog.shown = false;
+			// set function call
+			function_call = fnc;
+			// set function parameter
+			function_param = param;
+			// start fade out
+			fade(REDIPS.dialog.op_high, -10);
+			// hide dialog box
+			dialog_box.style.display = 'none';
+		}
 	};
 
 
@@ -373,6 +381,7 @@ REDIPS.dialog = (function () {
 		op_low			: op_low,		// lowest opacity level (should be the same as initial opacity in the CSS)
 		fade_speed		: fade_speed,	// fade speed (default is 18ms)
 		youtube			: youtube,		// youtube HTML code
+		shown			: shown,		// (boolean) readonly public property which shows if dialog is displayed or not
 		close_button	: close_button,	// close button (1 character default ✕)
 
 		// public methods
