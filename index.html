@@ -4,42 +4,8 @@
 		<meta name="author" content="Darko Bunic"/>
 		<meta name="description" content="Dialog box"/>
 		<link rel="stylesheet" href="redips-dialog.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="redips-dialog.js"></script>
-		<script type="text/javascript">
-			// define redips_init variable
-			var redips_init;
-			// dialog box initialization (called from event)
-			redips_init = function () {
-				REDIPS.dialog.init();
-				REDIPS.dialog.op_high = 60;
-				REDIPS.dialog.fade_speed = 18;
-				//REDIPS.dialog.close_button = 'Z';
-			}
-	
-			// execute after button1 is clicked 
-			function button1() {
-				alert('Hi from function button1 ...');
-			}
-	
-			// execute after button2 is clicked
-			function button2(param) {
-				var msg;
-				if (param !== undefined) {
-					msg = 'Hi from function button2 - ' + param;
-				}
-				else {
-					msg = 'Hi from function button2 ...';
-				}
-				alert(msg);
-			}
-			// add onload event listener
-			if (window.addEventListener) {
-				window.addEventListener('load', redips_init, false);
-			}
-			else if (window.attachEvent) {
-				window.attachEvent('onload', redips_init);
-			}
-		</script>
+		<script type="text/javascript" src="redips-dialog-min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
 		<style>
 			body {
 				font-family: arial;
@@ -49,12 +15,12 @@
 				margin-bottom: 10px;
 			}
 		</style>
-		<title>Dialog box demo</title>
+		<title>Dialog box demo - 1.5.5</title>
 	</head>
 	<body>
 		<center>
 			<h1><a href="http://www.redips.net/javascript/dialog-box/">www.redips.net</a></h1>
-			<h2>Dialog box demo - 1.5.3</h2>
+			<h2>Dialog box demo - 1.5.5</h2>
 		</center>
 	
 		Examples:
@@ -110,10 +76,10 @@
 			</li>
 			<li>
 				<!-- for local demo -->
-				<a href="#" onclick="REDIPS.dialog.show(150, 70, 'Delete image?|icon_smile.gif', 'Cancel', 'Yes|button2');return false">Dialog with image, text and action on second button</a><br/>REDIPS.dialog.show(150, 70, 'Delete image?|icon_smile.gif', 'Cancel', 'Yes|button2')
+				<a href="#" onclick="REDIPS.dialog.show(150, 70, 'Delete image?|icon_smile.gif', 'Cancel', 'Yes|button2|img1');return false">Dialog with image, text and action on second button (with parameter)</a><br/>REDIPS.dialog.show(150, 70, 'Delete image?|icon_smile.gif', 'Cancel', 'Yes|button2|img1')
 				<!-- for www.redips.net -->
 				<!-- 
-				<a href="#" onclick="REDIPS.dialog.show(300, 160, 'Delete image?|/my/img/spider2_big.png', 'Cancel', 'Yes|button2');return false">Dialog with image, text and action on second button</a><br/>REDIPS.dialog.show(300, 160, 'Delete image?|/path/spider2.png', 'Cancel', 'Yes|button2')
+				<a href="#" onclick="REDIPS.dialog.show(300, 160, 'Delete image?|/my/img/spider2_big.png', 'Cancel', 'Yes|button2|img1');return false">Dialog with image, text and action on second button (with parameter)</a><br/>REDIPS.dialog.show(300, 160, 'Delete image?|/path/spider2.png', 'Cancel', 'Yes|button2|img1')
 				 -->
 			</li>
 			<!-- HTML page example -->

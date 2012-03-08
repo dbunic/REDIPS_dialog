@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.4
-Oct 6, 2011.
+Version 1.5.5
+Mar 8, 2012.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -23,19 +23,20 @@ var REDIPS = REDIPS || {};
  * @author Darko Bunic
  * @see
  * <a href="http://www.redips.net/javascript/dialog-box/">JavaScript dialog box</a>
- * @version 1.5.2
+ * @version 1.5.5
  */
 REDIPS.dialog = (function () {
 		// function declaration
 	var	init,
 		show,
 		hide,
-		image_tag,		// prepare image tag
+		image_tag,			// prepare image tag
 		position,
 		fade,
-		input_html,		// function prepares input tag HTML
-		dialog_html,	// prepares dialog html
+		input_html,			// function prepares input tag HTML
+		dialog_html,		// prepares dialog html
 		initXMLHttpClient,
+		normalize,			// private method returns normalized spaces from input string
 		
 		// properties
 		request,		// XMLHttp request object (needed for HTML tag)
@@ -257,7 +258,7 @@ REDIPS.dialog = (function () {
 			param = '';
 		}
 		// prepare input tag HTML
-		html = '<input type="button" onclick="REDIPS.dialog.hide(\'' + button[1] + param + '\');" value="' + button[0] + '"/>';
+		html = '<input type="button" onclick="REDIPS.dialog.hide(\'' + normalize(button[1]) + normalize(param) + '\');" value="' + normalize(button[0]) + '"/>';
 		// return result
 		return html;
 	};
@@ -347,6 +348,22 @@ REDIPS.dialog = (function () {
 				window[function_call](function_param);
 			}
 		}
+	};
+
+	/**
+	 * Function returns a string in which all of the preceding and trailing white space has been
+	 * removed, and in which all internal sequences of white is replaced with one white space. 
+	 * @param {String} str Input string.
+	 * @return {String} Returns normalized string.
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
+	normalize = function (str) {
+		if (str !== undefined) {
+			str = str.replace(/^\s+|\s+$/g, '').replace(/\s{2,}/g, ' ');
+		}
+		// return normalized string (without preceding and trailing spaces)
+		return str;
 	};
 
 

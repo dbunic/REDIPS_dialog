@@ -1,5 +1,9 @@
 Changes for REDIPS.dialog
 
+1.5.5
+- added trim for function name and function parameter
+  * space characters will not cause error ('Yes| button2 ' will work as well as 'Yes|button2')
+
 1.5.4
 - fixed missing quote - thanks to Bianka Martinovic
 
