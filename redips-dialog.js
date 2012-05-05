@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.5.6
-Mar 8, 2012.
+Version 1.6.0
+May 4, 2012.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -23,7 +23,7 @@ var REDIPS = REDIPS || {};
  * @author Darko Bunic
  * @see
  * <a href="http://www.redips.net/javascript/dialog-box/">JavaScript dialog box</a>
- * @version 1.5.6
+ * @version 1.6.0
  */
 REDIPS.dialog = (function () {
 		// function declaration
@@ -138,8 +138,8 @@ REDIPS.dialog = (function () {
 		position();
 		// if text ends with jpg, jpeg, gif or png, then prepare img tag
 		img_extensions = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
-		// if text contains .php, .html, then prepare iframe tag
-		page_extensions = /(\.php|\.html)/i;
+		// if text contains .php, .html, .aspx then page will be fetched via AJAX
+		page_extensions = /(\.php|\.html|\.aspx)/i;
 		// if text contains youtube url
 		youtube_url = /www\.youtube\.com/i;
 		// prepare optional button1
@@ -195,7 +195,8 @@ REDIPS.dialog = (function () {
 			div_text = '<div>' + text + '</div>';
 			dialog_html(div_img + div_text, input1, input2);
 		}
-
+		// call event handler
+		REDIPS.dialog.myhandler_displayed();
 	};
 
 
@@ -246,6 +247,8 @@ REDIPS.dialog = (function () {
 			fade(REDIPS.dialog.op_high, -10);
 			// hide dialog box
 			dialog_box.style.display = 'none';
+			// call event handler after dialog is hidden (or better say closed)
+			REDIPS.dialog.myhandler_closed();
 		}
 	};
 
@@ -387,7 +390,23 @@ REDIPS.dialog = (function () {
 		// public methods
 		init			: init,			// initialization
 		show			: show,			// show dialog box
-		hide			: hide			// hide dialog box
+		hide			: hide,			// hide dialog box
+
+		// event handlers
+		/**
+		 * Event handler invoked after dialog is displayed on the page.
+		 * @name REDIPS.drag#myhandler_displayed
+		 * @function
+		 * @event
+		 */
+		myhandler_displayed : function () {},
+		/**
+		 * Event handler invoked after dialog is closed.
+		 * @name REDIPS.drag#myhandler_closed
+		 * @function
+		 * @event
+		 */	
+		myhandler_closed : function () {}
 	};
 
 }());

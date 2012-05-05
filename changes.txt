@@ -1,5 +1,10 @@
 Changes for REDIPS.dialog
 
+1.6.0
+- added ASPX page definition to fetch via AJAX -> REDIPS.dialog.show(520, 400, 'Email.aspx')
+- added event handlers myhandler_displayed() and myhandler_closed()
+- added example00 to show how to use new event handlers
+
 1.5.6
 - added trim for function name and function parameter
   * space characters will not cause error ('Yes| button2 ' will work as well as 'Yes|button2')

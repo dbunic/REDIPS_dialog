@@ -4,11 +4,13 @@
 /* enable strict mode */
 "use strict";
 
-// define redips_init variable
-var redips_init;
+
+// create redips container
+var redips = {};
+
 
 // dialog box initialization (called from onload event)
-redips_init = function () {
+redips.init = function () {
 	REDIPS.dialog.init();
 	REDIPS.dialog.op_high = 60;
 	REDIPS.dialog.fade_speed = 18;
@@ -35,8 +37,8 @@ function button2(param) {
 
 // add onload event listener
 if (window.addEventListener) {
-	window.addEventListener('load', redips_init, false);
+	window.addEventListener('load', redips.init, false);
 }
 else if (window.attachEvent) {
-	window.attachEvent('onload', redips_init);
+	window.attachEvent('onload', redips.init);
 }

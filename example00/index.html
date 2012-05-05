@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta name="author" content="Darko Bunic"/>
+		<meta name="description" content="Dialog box"/>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../redips-dialog.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="../redips-dialog-min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<title>Dialog box demo</title>
+	</head>
+	<body>
+		<center>
+			<h3>Dialog box - example shows usage of event handlers</h3>
+			<div class="container">
+				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a> -> REDIPS.dialog.show(150, 120, 'Simple dialog')
+			</div>
+			<!-- message box (used by event handlers) -->
+			<div id="message"/>
+		</center>
+	</body>
+</html>
+

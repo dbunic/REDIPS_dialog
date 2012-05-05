@@ -1,0 +1,24 @@
+/*
+
+Darko Bunic
+http://www.redips.net/
+May, 2012.
+
+*/
+
+body{
+	font-family: arial;
+	margin: 0px;
+}
+
+/* main container */
+.container {
+	width: 100%;
+	margin-top: 50px;
+}
+
+/* message box */
+#message {
+	color: #555;
+	margin-top: 50px;
+}

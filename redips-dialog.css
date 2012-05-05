@@ -61,7 +61,7 @@ Mar, 2011.
 			}
 
 		/* dialog buttons */
-		#redips_dialog_buttons input {
+		.redips_dialog_buttons input {
 			color: white;
 			background-color: #6A93D4;
 			border: 1px #ccc solid;
