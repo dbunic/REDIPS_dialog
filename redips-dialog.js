@@ -2,8 +2,8 @@
 Copyright (c)  2008-2011, www.redips.net  All rights reserved.
 Code licensed under the BSD License: http://www.redips.net/license/
 http://www.redips.net/javascript/dialog-box/
-Version 1.6.0
-May 4, 2012.
+Version 1.7.0
+Aug 1, 2012.
 */
 
 /*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, plusplus: false, bitwise: true, regexp: true, strict: true, newcap: true, immed: true, maxerr: 14 */
@@ -23,7 +23,7 @@ var REDIPS = REDIPS || {};
  * @author Darko Bunic
  * @see
  * <a href="http://www.redips.net/javascript/dialog-box/">JavaScript dialog box</a>
- * @version 1.6.0
+ * @version 1.7.0
  */
 REDIPS.dialog = (function () {
 		// function declaration
@@ -34,17 +34,19 @@ REDIPS.dialog = (function () {
 		position,
 		fade,
 		input_html,			// function prepares input tag HTML
+		html,				// function sets custom HTML to display in dialog box
 		dialog_html,		// prepares dialog html
 		initXMLHttpClient,
 		normalize,			// private method returns normalized spaces from input string
 		
 		// properties
-		request,		// XMLHttp request object (needed for HTML tag)
-		op_high = 60,	// highest opacity level
-		op_low = 0,		// lowest opacity level (should be the same as initial opacity in the CSS)
-		fade_speed = 10,// set default speed - 10ms
-		shown = false,	// (boolean) readonly public property which shows if dialog is displayed or not
-		close_button = '✕',
+		request,			// XMLHttp request object (needed for HTML tag)
+		op_high = 60,		// highest opacity level
+		op_low = 0,			// lowest opacity level (should be the same as initial opacity in the CSS)
+		fade_speed = 10,	// set default speed - 10ms
+		shown = false,		// (boolean) readonly public property which shows if dialog is displayed or not
+		close_button = '✕',	// (string) define close button
+		custom_html,		// custom HTML to display inside dialog box (custom_html is set in REDIPS.drag.html method)
 		// youtube HTML code (this can be overwritten with REDIPS.dialog.youtube - "_youtube_" must be present)
 		youtube =	'<object width="640" height="390">' +
 						'<param name="movie" value="http://_youtube_?&version=2&fs=0&rel=0&iv_load_policy=3&color2=0x6A93D4"></param>' +
@@ -68,11 +70,19 @@ REDIPS.dialog = (function () {
 		dialog_id = 'redips_dialog';	// set dialog id (the same id should be in redips-dialog.css) 
 
 
-	// initialization
+	/**
+	 * Dialog box initialization.
+	 * It should be called at least once before execution of REDIPS.dialog.show() method.
+	 * @public
+	 * @function
+	 * @name REDIPS.dialog#init
+	 */
 	init = function () {
 		// create dialog box
 		dialog_box = document.createElement('div');
 		dialog_box.setAttribute('id', dialog_id);
+		// create DIV element to pass custom HTML (displayed in dialog box)
+		custom_html = document.createElement('div');
 		// create shade div
 		shade = document.createElement('div');
 		shade.setAttribute('id', 'redips_dialog_shade');
@@ -88,6 +98,12 @@ REDIPS.dialog = (function () {
 	};
 
 
+	/**
+	 * XMLHttp request object initialization.
+	 * @return {Object} Returns XMLHttpRequest object.
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
 	// XMLHttp request object
 	initXMLHttpClient = function () {
 		var XMLHTTP_IDS,
@@ -117,7 +133,18 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// show dialog box
+	/**
+	 * Show dialog box. Method will shade page background and display dialog box.
+	 * @param {Integer} width Dialog box width.
+	 * @param {Integer} height Dialog box height.
+	 * @param {String} text It can contain text, image, page (.php .html .aspx) and 'html' as parameter.
+	 * @param {String} [button1] Define first button.
+	 * @param {String} [button2] Define second button.
+	 * @see <a href="#hide">hide</a>
+	 * @public
+	 * @function
+	 * @name REDIPS.dialog#show
+	 */
 	show = function (width, height, text, button1, button2) {
 		var input1 = '',		// define input1 button
 			input2 = '',		// define input2 (optional) button
@@ -150,8 +177,12 @@ REDIPS.dialog = (function () {
 		if (button2 !== undefined) {
 			input2  = input_html(button2);
 		}
+		// if input text is 'html' then it be considered as input parameter and HTML from REDIPS.dialog.html object will be used
+		if (text === 'html') {
+			dialog_html(custom_html.innerHTML, input1, input2);
+		}
 		// if text is image		
-		if (img_extensions.test(text)) {
+		else if (img_extensions.test(text)) {
 			// text can precede jpg, jpeg, gif or png image, so search for separator
 			img_text = text.split('|');
 			// separator doesn't exist, display only image without text
@@ -176,9 +207,9 @@ REDIPS.dialog = (function () {
 					if (request.status === 200) {
 						dialog_html(request.responseText);
 					}
-					// if request status isn't OK
+					// if request status is not OK then display error in dialog
 					else {
-						show.dialog_html('Error: [' + request.status + '] ' + request.statusText);
+						dialog_html('Error: [' + request.status + '] ' + request.statusText);
 					}
 			    }
 			};
@@ -204,14 +235,13 @@ REDIPS.dialog = (function () {
 	 * Method sets innerHTML for displaying text, images, youtube videos or custom HTML inside dialog box.
 	 * "html" parameter is mandatory while input1 and input2 are optional and they will be mostly used
 	 * for displaying text (questions).
-	 * @param {String} html HTML code to display in dialog box.
+	 * @param {String} html_dialog HTML code to display in dialog box.
 	 * @param {String} [input1] First button.
 	 * @param {String} [input2] Second button.
-	 * @see <a href="#row_clone">row_clone</a>
 	 * @private
 	 * @memberOf REDIPS.drag#
 	 */
-	dialog_html = function (html, input1, input2) {
+	dialog_html = function (html_dialog, input1, input2) {
 		// if buttons are not defined, set blank string to enable string concatenation
 		if (input1 === undefined) {
 			input1 = '';
@@ -223,7 +253,7 @@ REDIPS.dialog = (function () {
 		// dialog box (this should work in all browsers)
 		dialog_box.innerHTML = '<div class="redips_dialog_titlebar"><span title="Close" onclick="REDIPS.dialog.hide(\'undefined\')">' + REDIPS.dialog.close_button + '</span></div>' +
 								'<table class="redips_dialog_tbl" cellpadding="0" cellspacing="0"><tr><td valign="center" height="' + dialog_height + '" width="' + dialog_width + '">' +
-								 html +
+								 html_dialog +
 								 '<div class="redips_dialog_buttons">' + input1 + input2 + '</div>' +
 								 '</td></tr></table>';
 		// show shade and dialog box
@@ -233,7 +263,14 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// hide dialog box and shade
+	/**
+	 * Hide dialog box and remove shade (fade out page).
+	 * @param {String} fnc Set function call on dialog box hide. If function is not needed then input parameter should be string "undefined".
+	 * @param {String} [param] Set parameter to send to the function.
+	 * @public
+	 * @function
+	 * @name REDIPS.dialog#hide
+	 */
 	hide = function (fnc, param) {
 		// test if dialog is displayed
 		if (REDIPS.dialog.shown === true) {
@@ -253,10 +290,16 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// function prepares input tag HTML based on "Yes|button2|hello" syntax
+	/**
+	 * Method prepares input tag HTML based on "Yes|button2|hello" syntax. 
+	 * @param {String} button Input string in a form "Yes|button2|hello".
+	 * @return {String} Returns HTML of "input" button with prepared REDIPS.dialog.hide() call. This HTML will be used to display buttons in dialog box.
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
 	input_html = function (button) {
-		var param,	// optional parameter for function hide
-			html;	// input tag HTML
+		var param,		// optional parameter for function hide
+			input_tag;	// input tag HTML
 		// split button values
 		button = button.split('|');
 		// define parameter (this is last value in composed string)
@@ -269,13 +312,19 @@ REDIPS.dialog = (function () {
 			param = '';
 		}
 		// prepare input tag HTML
-		html = '<input type="button" onclick="REDIPS.dialog.hide(\'' + normalize(button[1]) + normalize(param) + '\');" value="' + normalize(button[0]) + '"/>';
+		input_tag = '<input type="button" onclick="REDIPS.dialog.hide(\'' + normalize(button[1]) + normalize(param) + '\');" value="' + normalize(button[0]) + '"/>';
 		// return result
-		return html;
+		return input_tag;
 	};
 
 
-	// prepare img tags (one or more) 
+	/**
+	 * If text parameter in REDIPS.dialog.show() method contains image (.jpg .jpeg .gif .png) then this method will prepare complete HTML (image wrapped inside DIV element).
+	 * @param {String} image Image to display (it is text like "my_image.jpg).
+	 * @return {String} Returns HTML for image prepared to display in dialog box.
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
 	image_tag = function (image) {
 		var img,	// prepared img HTML
 			images,	// array containing separated images
@@ -299,7 +348,25 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// function sets dialog position to the center and maximize shade div
+	/**
+	 * Method sets HTML to the custom_html object.
+	 * Content of "custom_html" will be used if REDIPS.dialog.show() method will have "html" as string parameter.
+	 * @param {String} my_html Custom HTML to show in dialog box.
+	 * @see <a href="#show">show</a>
+	 * @public
+	 * @function
+	 * @name REDIPS.dialog#html
+	 */
+	html = function (my_html) {
+		custom_html.innerHTML = my_html;
+	};
+
+
+	/**
+	 * Method sets dialog position to the center and maximize shade div.
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
 	position = function () {
 		// define local variables
 		var window_width, window_height, scrollX, scrollY;
@@ -337,7 +404,14 @@ REDIPS.dialog = (function () {
 	};
 
 
-	// shade fade in / fade out
+	/**
+	 * Method fades in / fades out page background.
+	 * If step is negative then method will fade out otherwise it will fade in (shade) page background.
+	 * @param {Integer} opacity Defines opacity level for fade in / fade out.
+	 * @param {Integer} step Defines step for fade in / fade out process. Step can be positive or negative. 
+	 * @private
+	 * @memberOf REDIPS.dialog#
+	 */
 	fade = function (opacity, step) {
 		// set opacity for FF and IE
 		shade.style.opacity = opacity / 100;
@@ -361,8 +435,9 @@ REDIPS.dialog = (function () {
 		}
 	};
 
+
 	/**
-	 * Function returns a string in which all of the preceding and trailing white space has been
+	 * Method returns a string in which all of the preceding and trailing white space has been
 	 * removed, and in which all internal sequences of white is replaced with one white space. 
 	 * @param {String} str Input string.
 	 * @return {String} Returns normalized string.
@@ -391,6 +466,7 @@ REDIPS.dialog = (function () {
 		init			: init,			// initialization
 		show			: show,			// show dialog box
 		hide			: hide,			// hide dialog box
+		html			: html,			// define custom HTML
 
 		// event handlers
 		/**

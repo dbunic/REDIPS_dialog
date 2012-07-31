@@ -1,5 +1,12 @@
 Changes for REDIPS.dialog
 
+1.7.0
+- added REDIPS.dialog.html() method (defines custom HTML to show in dialog box)
+- added example01 to show how to display custom HTML in dialog box
+- redips-dialog-min.js is compressed with using Google Closure Compiler
+- fixed bug when page is not found
+- comments in redips-dialog.js are written in JSDoc style
+
 1.6.0
 - added ASPX page definition to fetch via AJAX -> REDIPS.dialog.show(520, 400, 'Email.aspx')
 - added event handlers myhandler_displayed() and myhandler_closed()

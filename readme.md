@@ -1,4 +1,4 @@
-REDIPS.dialog 1.6.0
+REDIPS.dialog 1.7.0
 ============
 
 ## What's REDIPS.dialog?
@@ -13,8 +13,16 @@ REDIPS.dialog is a simple JavaScript dialog box created with two DIVs. First DIV
 * display images in dialog box
 * combining images and text
 * show dialog from HTML page (HTML, PHP, ASPX ...)
+* show custom HTML
 * display YouTube video in dialog box
 * myhandler_displayed() and myhandler_closed() event handlers invoked after dialog is displayed / closed
+
+## Public methods
+
+* REDIPS.dialog.init() - dialog box initialization
+* REDIPS.dialog.show() - show dialog box
+* REDIPS.dialog.hide() - hide dialog box
+* REDIPS.dialog.html() - define custom HTML to display in dialog box
 
 ## Demos
 

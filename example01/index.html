@@ -8,17 +8,16 @@
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="../redips-dialog-min.js"></script>
 		<script type="text/javascript" src="script.js"></script>
-		<title>Dialog box example00</title>
+		<title>Dialog box example01</title>
 	</head>
 	<body>
 		<center>
-			<h3>Dialog box - show usage of event handlers</h3>
+			<h3>Dialog box - show custom HTML</h3>
 			<div class="container">
-				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a> -> REDIPS.dialog.show(150, 120, 'Simple dialog')
+				<a href="#" onclick="REDIPS.dialog.show(200, 200, 'html');return false">Show custom HTML</a> -> REDIPS.dialog.show(200, 200, 'html')
 			</div>
 			<!-- message box (used by event handlers) -->
-			<div id="message"/>
+			<div id="message"><input type="button" value="Instructions" onclick="REDIPS.dialog.show(500, 350, 'readme.html')"/></div>
 		</center>
 	</body>
 </html>
-

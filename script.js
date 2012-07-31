@@ -15,6 +15,8 @@ redips.init = function () {
 	REDIPS.dialog.op_high = 60;
 	REDIPS.dialog.fade_speed = 18;
 	//REDIPS.dialog.close_button = 'Z';
+	// if 'html' string is send as parameter in REDIPS.dialog.show() then this HTML will be used
+	REDIPS.dialog.html('<div><a href="http://www.redips.net/" title="REDIPS site">www.redips.net</a><br/><br/>This is my HTML</div>');
 };
 
 
