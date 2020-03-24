@@ -1,0 +1,28 @@
+/*
+
+Darko Bunic
+http://www.redips.net/
+Mar, 2020.
+
+*/
+body {
+	font-family: arial;
+	margin: 0px;
+}
+
+/* header */
+div#header {
+	text-align: center;
+	margin-top: 50px;
+}
+
+/* content DIV */
+div#content {
+	margin: auto;
+	width: 720px;
+}
+
+/* ordered list */
+ol#list li {
+	margin-bottom: 10px;
+}

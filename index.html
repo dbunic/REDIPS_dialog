@@ -1,32 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
+		<title>www.redips.net</title>
 		<meta name="author" content="Darko Bunic"/>
 		<meta name="description" content="Dialog box"/>
 		<link rel="stylesheet" href="redips-dialog.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="redips-dialog-min.js"></script>
 		<script type="text/javascript" src="script.js"></script>
-		<style>
-			body {
-				font-family: arial;
-			}		
-			/* ordered list demo */
-			#ol_demo li {
-				margin-bottom: 10px;
-			}
-		</style>
-		<title>Dialog box - version 1.8.0</title>
+		<script type="text/javascript" src="header.js"></script>
 	</head>
 	<body>
-		<center>
-			<h1><a href="http://www.redips.net/javascript/dialog-box/">www.redips.net</a></h1>
-			<h2>Dialog box - version 1.8.0</h2>
-		</center>
-	
+		<div id="header">
+			<h2><a href="http://www.redips.net/javascript/dialog-box/">REDIPS.dialog</a></h2>
+			<h3>Dialog box - Version 1.8.0</h3>
+		</div>
+
+		<div id="content">
 		Examples:
 	
 		<!-- "return false" in onclick is needed to prevent jump to the top after link is clicked -->
-		<ol id="ol_demo">
+		<ol id="list">
 			<li>
 				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a><br/>REDIPS.dialog.show(150, 120, 'Simple dialog')
 			</li>
@@ -95,13 +89,15 @@
 			</li>
 			<!-- example00 - event handlers -->
 			<li>
-				<a href="example00/" title="REDIPS.dialog - event handlers">Example00 - event handlers</a><br/>How to use event handlers (fired on show and on hide dialog box)
+				<a href="example00/" title="REDIPS.dialog - event handlers">Example 0: Event handlers</a><br/>How to use event handlers (fired on show and on hide dialog box)
 			</li>
 			<!-- example01 - custom HTML -->
 			<li>
-				<a href="example01/" title="REDIPS.dialog - custom HTML">Example01 - custom HTML</a><br/>How to display custom HTML in dialog box
+				<a href="example01/" title="REDIPS.dialog - custom HTML">Example 1: Custom HTML</a><br/>How to display custom HTML in dialog box
 			</li>
 		</ol>
+		</div>
+
 	</body>
 </html>
 

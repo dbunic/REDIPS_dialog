@@ -7,12 +7,13 @@
 		<!-- style.css should be loaded after redips-dialog.css to enable overwriting styles -->
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="../redips-dialog-min.js"></script>
+		<script type="text/javascript" src="../header.js"></script>
 		<script type="text/javascript" src="script.js"></script>
-		<title>Dialog box example01</title>
+		<title>Example 1: Custom HTML</title>
 	</head>
 	<body>
-		<center>
-			<h3>Dialog box - show custom HTML</h3>
+		<div id="main">
+			<h3>Dialog box - Custom HTML</h3>
 			<br/>
 			<br/>
 			<a href="#" onclick="REDIPS.dialog.show(200, 200, 'html');return false">Show custom HTML</a> -> REDIPS.dialog.show(200, 200, 'html')
@@ -20,6 +21,6 @@
 			<br/>
 			<!--Instruction button -->
 			<input type="button" value="Instruction" onclick="REDIPS.dialog.show(500, 350, 'readme.html')"/>
-		</center>
+		</div>
 	</body>
 </html>

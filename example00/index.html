@@ -7,18 +7,19 @@
 		<!-- style.css should be loaded after redips-dialog.css to enable overwriting styles -->
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="../redips-dialog-min.js"></script>
+		<script type="text/javascript" src="../header.js"></script>
 		<script type="text/javascript" src="script.js"></script>
-		<title>Dialog box example00</title>
+		<title>Example 0: Event handlers</title>
 	</head>
 	<body>
-		<center>
-			<h3>Dialog box - show usage of event handlers</h3>
+		<div id="main">
+			<h3>Dialog box - Event handlers</h3>
 			<div class="container">
 				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a> -> REDIPS.dialog.show(150, 120, 'Simple dialog')
 			</div>
 			<!-- message box (used by event handlers) -->
 			<div id="message"/>
-		</center>
+		</div>
 	</body>
 </html>
 

@@ -11,6 +11,11 @@ body {
 	margin: 0px;
 }
 
+/* main content */
+div#main {
+	text-align: center;
+}
+
 /* overwrite "text-align: center" from redips-dialog.css */
 /* it is important to load this style.css after redips-dialog.css in index.html */
 .redips_dialog_tbl {
