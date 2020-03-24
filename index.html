@@ -15,12 +15,12 @@
 				margin-bottom: 10px;
 			}
 		</style>
-		<title>Dialog box demo - 1.7.0</title>
+		<title>Dialog box - version 1.8.0</title>
 	</head>
 	<body>
 		<center>
 			<h1><a href="http://www.redips.net/javascript/dialog-box/">www.redips.net</a></h1>
-			<h2>Dialog box demo - 1.7.0</h2>
+			<h2>Dialog box - version 1.8.0</h2>
 		</center>
 	
 		Examples:
@@ -28,7 +28,7 @@
 		<!-- "return false" in onclick is needed to prevent jump to the top after link is clicked -->
 		<ol id="ol_demo">
 			<li>
-				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a><br/>REDIPS.dialog.show(150, 120, 'Simple dialog')			
+				<a href="#" onclick="REDIPS.dialog.show(150, 120, 'Simple dialog');return false">Simple dialog</a><br/>REDIPS.dialog.show(150, 120, 'Simple dialog')
 			</li>
 			<li>
 				<a href="#" onclick="REDIPS.dialog.show(200, 200, 'Bigger dialog with renamed button', 'OK');return false">Bigger dialog with renamed button</a><br/>REDIPS.dialog.show(200, 200, 'Bigger dialog with renamed button', 'OK')
@@ -52,7 +52,7 @@
 			</li>
 			<li>
 				<!-- for local demo -->
-				<a href="#" onclick="REDIPS.dialog.show(70, 70, 'icon_smile.gif,icon_smile.gif,icon_smile.gif');return false">Dialog with more images</a><br/>REDIPS.dialog.show(70, 70, 'icon_smile.gif,icon_smile.gif,icon_smile.gif')
+				<a href="#" onclick="REDIPS.dialog.show(100, 70, 'icon_smile.gif,icon_smile.gif,icon_smile.gif');return false">Dialog with more images</a><br/>REDIPS.dialog.show(70, 70, 'icon_smile.gif,icon_smile.gif,icon_smile.gif')
 				<!-- for www.redips.net -->
 				<!--
 				<a href="#" onclick="REDIPS.dialog.show(100, 90, '/wp-includes/images/crystal/document.png,/wp-includes/images/crystal/audio.png,/wp-includes/images/crystal/spreadsheet.png');return false">Dialog with more images</a><br/>REDIPS.dialog.show(100, 90, '/path/img1.png,/path/img2.png,/path/img3.png')
@@ -60,7 +60,7 @@
 			</li>
 			<li>
 				<!-- for local demo -->
-				<a href="#" onclick="REDIPS.dialog.show(70, 70, 'Hello!|icon_smile.gif,icon_smile.gif,icon_smile.gif');return false">Dialog with more images and text</a><br/>REDIPS.dialog.show(70, 70, 'Hello!|icon_smile.gif,icon_smile.gif,icon_smile.gif')
+				<a href="#" onclick="REDIPS.dialog.show(100, 70, 'Hello!|icon_smile.gif,icon_smile.gif,icon_smile.gif');return false">Dialog with more images and text</a><br/>REDIPS.dialog.show(70, 70, 'Hello!|icon_smile.gif,icon_smile.gif,icon_smile.gif')
 				<!-- for www.redips.net -->
 				<!-- 
 				<a href="#" onclick="REDIPS.dialog.show(100, 90, 'Hello!|/wp-includes/images/crystal/document.png,/wp-includes/images/crystal/audio.png,/wp-includes/images/crystal/spreadsheet.png');return false">Dialog with more images and text</a><br/>REDIPS.dialog.show(100, 90, 'Hello!|/path/img1.png,/path/img2.png,/path/img3.png')
@@ -91,11 +91,7 @@
 			</li>
 			<!-- youtube example1 -->
 			<li>
-				<a href="#" onclick="REDIPS.dialog.show(640, 390, 'www.youtube.com/v/2JWaWfKc5Vg');return false">YouTube example1</a><br/>REDIPS.dialog.show(640, 390, 'www.youtube.com/v/2JWaWfKc5Vg')
-			</li>
-			<!-- youtube example2 -->
-			<li>
-				<a href="#" onclick="REDIPS.dialog.show(640, 390, 'www.youtube.com/v/8LtMk4DwLzA');return false">YouTube example2</a><br/>REDIPS.dialog.show(640, 390, 'www.youtube.com/v/8LtMk4DwLzA')
+				<a href="#" onclick="REDIPS.dialog.show(640, 390, 'youtube:2JWaWfKc5Vg');return false">YouTube example1 - format youtube:{youtubeId}</a><br/>REDIPS.dialog.show(640, 390, 'youtube:2JWaWfKc5Vg')
 			</li>
 			<!-- example00 - event handlers -->
 			<li>

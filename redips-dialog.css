@@ -1,11 +1,11 @@
 /*
 Darko Bunic
 http://www.redips.net/
-Mar, 2011.
+Mar, 2020.
 */
 
 /* dialog box */
-#redips_dialog {
+#redips-dialog {
 	display: none;
 	z-index: 999;
 	position: fixed;
@@ -21,14 +21,14 @@ Mar, 2011.
 	border-bottom-left-radius: 5px 5px;
 }
 		/* title bar */
-		.redips_dialog_titlebar {
+		.redips-dialog-titlebar {
 			text-align: right;
 			font-size: 10px;
 			background-color: #6A93D4;
 			padding: 2px;
 		}
 			/* close button in title bar */
-			.redips_dialog_titlebar span {
+			.redips-dialog-titlebar span {
 				padding: 0px 2px;
 				background-color: #92B4EA;
 				color: white;
@@ -37,7 +37,7 @@ Mar, 2011.
 			}
 
 		/* table inside dialog box */
-		.redips_dialog_tbl {
+		.redips-dialog-tbl {
 			background-color: #eee;
 			border-width: 0px 2px 2px 2px;
 			border-color: #6A93D4;
@@ -45,23 +45,23 @@ Mar, 2011.
 			text-align: center;
 		}
 			/* reset table cell padding */
-			.redips_dialog_tbl td {
+			.redips-dialog-tbl td {
 				padding: 0px;
 			}
 
 		/* image container will display only horizontal scrollbar */
-		.redips_dialog_imgc {
+		.redips-dialog-imgc {
 			overflow-y: hidden;
 			overflow-x: auto;
 			margin: 5px auto 5px auto;
 		}
 			/* center images table (if more then one image is shown) */
-			.redips_dialog_imgc table {
+			.redips-dialog-imgc table {
 				margin: auto;
 			}
 
 		/* dialog buttons */
-		.redips_dialog_buttons input {
+		.redips-dialog-buttons input {
 			color: white;
 			background-color: #6A93D4;
 			border: 1px #ccc solid;
@@ -73,7 +73,7 @@ Mar, 2011.
 
 
 /* shaded div */
-#redips_dialog_shade {
+#redips-dialog-shade {
 	z-index: 998;
 	display: none;
 	position: absolute;

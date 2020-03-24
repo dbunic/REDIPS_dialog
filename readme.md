@@ -1,10 +1,10 @@
-REDIPS.dialog 1.7.0
+REDIPS.dialog 1.8.0
 ============
 
-## What's REDIPS.dialog?
+## What id REDIPS.dialog?
 
-REDIPS.dialog is a simple JavaScript dialog box created with two DIVs. First DIV overlays whole page
-(transparency is styled to 60%) while second DIV (dialog box) is positioned on the page center.
+REDIPS.dialog is simple JavaScript dialog box created with two DIV elements. First DIV overlays whole page
+(transparency is styled to 60%) while second DIV (dialog box) is positioned at page center.
 
 ## Features
 
@@ -15,7 +15,7 @@ REDIPS.dialog is a simple JavaScript dialog box created with two DIVs. First DIV
 * show dialog from HTML page (HTML, PHP, ASPX ...)
 * show custom HTML
 * display YouTube video in dialog box
-* myhandler_displayed() and myhandler_closed() event handlers invoked after dialog is displayed / closed
+* event.displayed() and event.closed() event handlers invoked after dialog is displayed / closed
 
 ## Public methods
 

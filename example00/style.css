@@ -2,7 +2,7 @@
 
 Darko Bunic
 http://www.redips.net/
-May, 2012.
+Mar, 2020.
 
 */
 
@@ -20,5 +20,6 @@ body{
 /* message box */
 #message {
 	color: #555;
+	font-weight: bold;
 	margin-top: 50px;
 }

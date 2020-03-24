@@ -1,5 +1,13 @@
 Changes for REDIPS.dialog
 
+1.8.0 (2020-03-24)
+- REDIPS.drag is checked with ESLint - cleaning and optimization (deleted unused variables)
+- myhandler_displayed() changed to event.displayed()
+- myhandler_closed() changed to event.closed()
+- internal AJAX call updated
+- displaying YouTube in new format "youtube:{youtubeId}" - REDIPS.dialog.show(640, 390, 'youtube:2JWaWfKc5Vg')
+- changed YouTube embeded HTML code
+
 1.7.0
 - added REDIPS.dialog.html() method (defines custom HTML to show in dialog box)
 - added example01 to show how to display custom HTML in dialog box

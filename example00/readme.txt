@@ -1,4 +1,4 @@
-dbunic, 04.05.2012.
+README
 
-Example shows usage of event handlers myhandler_displayed() and myhandler_closed().
-In a moment when dialog is displayed or closed myhandler_displayed() and myhandler_closed() are called respectively.
+- example shows how to use event handlers event.displayed() and event.closed()
+- when dialog is displayed or closed event.displayed() and event.closed() are called respectively

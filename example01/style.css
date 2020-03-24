@@ -2,25 +2,13 @@
 
 Darko Bunic
 http://www.redips.net/
-Aug, 2012.
+Mar, 2020.
 
 */
 
-body{
+body {
 	font-family: arial;
 	margin: 0px;
-}
-
-/* main container */
-.container {
-	width: 100%;
-	margin-top: 50px;
-}
-
-/* message box */
-#message {
-	color: #555;
-	margin-top: 50px;
 }
 
 /* overwrite "text-align: center" from redips-dialog.css */
